@@ -30,11 +30,8 @@ const AudioRecorder = () => {
 
     const startRecording = async () => {
         setRecordingStatus("recording");
-        //create new Media recorder instance using the stream
         const media = new MediaRecorder(stream, { type: mimeType });
-        //set the MediaRecorder instance to the mediaRecorder ref
         mediaRecorder.current = media;
-        //invokes the start method to start the recording process
         mediaRecorder.current.start();
         let localAudioChunks = [];
         mediaRecorder.current.ondataavailable = (event) => {
@@ -47,12 +44,9 @@ const AudioRecorder = () => {
 
     const stopRecording = () => {
         setRecordingStatus("inactive");
-        //stops the recording instance
         mediaRecorder.current.stop();
         mediaRecorder.current.onstop = async () => {
-            //creates a blob file from the audiochunks data
             const audioBlob = new Blob(audioChunks, { type: mimeType });
-            //creates a playable URL from the blob file.
             const audioUrl = URL.createObjectURL(audioBlob);
             setAudio(audioUrl);
 
@@ -72,22 +66,7 @@ const AudioRecorder = () => {
             setAudioChunks([]);
         };
     };
-
-    const blobToBase64 = (blob) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(blob);
-        return new Promise(resolve => {
-            reader.onloadend = () => {
-                resolve(reader.result);
-            };
-        });
-    };
-
-    // reader.addEventListener('loadend', (e) => {
-    //     const text = e.srcElement.result;
-    //     console.log(text);
-    // });
-
+    
     return (
         <div>
             <h2>Audio Recorder</h2>

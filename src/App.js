@@ -1,13 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
 
 import AudioRecorder from './page/component/AudioRecorder';
 import VideoRecorder from './page/component/VideoRecorder';
+import LandingPage from './page/landingPage';
 
 function App() {
+  const [displayForm, setDisplayForm] = useState(false);
+
   return (
     <div className="App">
-      <VideoRecorder />
+      {
+        displayForm && <VideoRecorder />
+      }
+      {
+        !displayForm && <LandingPage isValidJob={setDisplayForm}/>
+      }
     </div>
   );
 }

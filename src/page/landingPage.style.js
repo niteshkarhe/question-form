@@ -3,10 +3,10 @@ import { makeStyles } from "tss-react/mui";
 export const useStyles = makeStyles()((theme) => ({
     card: {
         position: "fixed",
-        top: "40%",
+        top: "30%",
         left: "50%",
         width: "30em",
-        height: "22em",
+        height: "30em",
         marginTop: "-9em",
         marginLeft: "-15em",
         border: "1px solid #ccc",
@@ -17,11 +17,33 @@ export const useStyles = makeStyles()((theme) => ({
         fontFamily: "Cabin",
         fontWeight: "bold",
         fontSize: "40px",
-        color: "white"
+        color: "white",
+        textAlign: "center"
     },
 
     titleCard: {
         background: "#19477d",
+    },
+
+    submitBtnContainer: {
+        textAlign: "center"
+    },
+
+    submitBtn: {
+        backgroundColor: "#19477d",
+        color: "white",
+        display: "inline-flex",
+        alignItems: "center",
+        width: "90px",
+        padding: "6px 16px",
+        fontSize: "0.875rem",
+        borderRadius: "4px",
+        letterSpacing: "0.02857em",
+        position: "relative",
+        "&:hover": {
+            backgroundColor: "white",
+            color: "#19477d"
+        }
     },
 
     fieldCardContent: {
@@ -31,6 +53,7 @@ export const useStyles = makeStyles()((theme) => ({
     userForm: {
         width: "50%",
         marginLeft: "25%",
+        textAlign: "center"
     },
 
     inputBox: {

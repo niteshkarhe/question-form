@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 
-const VideoRecorder = ({recordId}) => {
+const VideoRecorder = ({recordId, uploadApiState}) => {
     const mimeType = "video/webm";
     const [permission, setPermission] = useState(false);
     const mediaRecorder = useRef(null);
@@ -75,7 +75,7 @@ const VideoRecorder = ({recordId}) => {
             const videoUrl = URL.createObjectURL(videoBlob);
             setRecordedVideo(videoUrl);
             
-            const videoFilename = recordId + "-videofile.mp4";
+            const videoFilename = recordId + "-videofile";
             const videofile = new File([videoBlob], videoFilename, {
                 type: mimeType,
             });
@@ -89,7 +89,8 @@ const VideoRecorder = ({recordId}) => {
                     "content-type": "multipart/form-data",
                 }
             );
-
+            
+            uploadApiState(true);
             setVideoChunks([]);
         };
     };

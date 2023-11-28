@@ -9,6 +9,18 @@ import VideoRecorder from "./VideoRecorder";
 const DisplayQuestion = (props) => {
     const [show, setShow] = useState(false);
     const [userQuestionId, setuserQuestionId] = useState('');
+    const [uploadState, setUploadState] = useState(false);
+
+    useEffect(() => {
+        if (uploadState)
+        {
+            const questionNum = props.questionNum + 1;
+            props.setQuestionNum(questionNum)
+        }
+
+        setUploadState(false);
+
+    }, [uploadState])
 
     const revealQueHandler = () => {
         const payload = {
@@ -32,16 +44,16 @@ const DisplayQuestion = (props) => {
         enabled: false
     });
 
-    console.log('Saved data id: ' + userQuestionId);
-
-
     return (
         <React.Fragment>
             {
-                !show && props.question !== undefined && <button onClick={revealQueHandler}>Reveal Question</button>
+                <div>{props.questionNum}</div>
+            }
+            {
+                !show && props.question !== undefined && <button disabled={props.item != props.questionNum} onClick={revealQueHandler}>Reveal Question</button>
             }
             <div>{show && <div>{props.question}</div>}</div>
-            {show && <VideoRecorder recordId={userQuestionId}/>}
+            {show && <VideoRecorder recordId={userQuestionId} uploadApiState={setUploadState}/>}
         </React.Fragment>
     );
 }

@@ -6,7 +6,7 @@ export const useStyles = makeStyles()((theme) => ({
         top: "30%",
         left: "50%",
         width: "30em",
-        height: "30em",
+        height: "18em",
         marginTop: "-9em",
         marginLeft: "-15em",
         border: "1px solid #ccc",

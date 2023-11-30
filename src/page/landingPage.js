@@ -12,20 +12,18 @@ import ErrorAlert from './component/ErrorAlert';
 
 import { useStyles } from './landingPage.style';
 
-import { getQuestionsOfRequestedJobId } from '../api/jobs';
+import { getCandidateQuestionsData } from '../api/candidates';
 
 const LandingPage = ({ isValidJob, questions }) => {
     const { classes } = useStyles();
-    const nameInputRef = useRef('');
-    const roleInputRef = useRef('');
-    const jobIdInputRef = useRef('');
+    const loginCodeInputRef = useRef('');
     const [email, setEmail] = useState('');
     const [questionApiCallState, setQuestionApiCallState] = useState(false);
     const [roleMatched, setRoleMatched] = useState(true);
 
     const getQuestionsApiCall = useQuery(
         ["getQuestions"],
-        () => getQuestionsOfRequestedJobId(jobIdInputRef.current.value),
+        () => getCandidateQuestionsData(loginCodeInputRef.current.value, email),
         {
             enabled: questionApiCallState
         }
@@ -50,11 +48,11 @@ const submitHandler = async (event) => {
     if (getQuestionsApiCall.error)
         return "An error has occured: " + getQuestionsApiCall.error
 
-    if (getQuestionsApiCall.data.role == roleInputRef.current.value) {
+    if (getQuestionsApiCall.data.email == email) {
         isValidJob(true);
-        localStorage.setItem('name', nameInputRef.current.value);
+        localStorage.setItem('name', getQuestionsApiCall.data.name);
         localStorage.setItem('email', email);
-        localStorage.setItem('role', roleInputRef.current.value);
+        localStorage.setItem('role', getQuestionsApiCall.data.role);
         questions(getQuestionsApiCall.data.questions)
     }
     else if (getQuestionsApiCall.data !== undefined) {
@@ -75,14 +73,6 @@ return (
             </CardContent>
             <CardContent className={classes.fieldCardContent}>
                 <form className={classes.userForm} onSubmit={submitHandler}>
-                    <TextField
-                        id="fullname"
-                        label="Name"
-                        variant="outlined"
-                        className={classes.inputBox}
-                        required
-                        inputRef={nameInputRef}
-                    />
                     <EmailField
                         label="Email"
                         fieldName="Email"
@@ -90,20 +80,12 @@ return (
                         enteredEmail={setEmail}
                     />
                     <TextField
-                        id="role"
-                        label="Job Role"
+                        id="login_code"
+                        label="Login Code"
                         variant="outlined"
                         className={classes.inputBox}
                         required
-                        inputRef={roleInputRef}
-                    />
-                    <TextField
-                        id="jobid"
-                        label="Job Id"
-                        variant="outlined"
-                        className={classes.inputBox}
-                        required
-                        inputRef={jobIdInputRef}
+                        inputRef={loginCodeInputRef}
                     />
                     <button className={classes.submitBtn}>SUBMIT</button>
                 </form>

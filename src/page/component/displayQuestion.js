@@ -12,8 +12,7 @@ const DisplayQuestion = (props) => {
     const [uploadState, setUploadState] = useState(false);
 
     useEffect(() => {
-        if (uploadState)
-        {
+        if (uploadState) {
             const questionNum = props.questionNum + 1;
             props.setQuestionNum(questionNum)
         }
@@ -24,7 +23,7 @@ const DisplayQuestion = (props) => {
 
     const revealQueHandler = () => {
         const payload = {
-            "email": localStorage.getItem('email'), 
+            "email": localStorage.getItem('email'),
             "name": localStorage.getItem('name'),
             "role": localStorage.getItem('role'),
             "question": props.question
@@ -34,8 +33,8 @@ const DisplayQuestion = (props) => {
         setShow(true);
     };
 
-    const {isLoading, data, isSuccess, error, mutate } = useMutation((payload) => saveUserData(payload), {
-        onSuccess: async(data) => {
+    const { isLoading, data, isSuccess, error, mutate } = useMutation((payload) => saveUserData(payload), {
+        onSuccess: async (data) => {
             setuserQuestionId(data.id);
         },
         OnError: () => {
@@ -47,13 +46,10 @@ const DisplayQuestion = (props) => {
     return (
         <React.Fragment>
             {
-                <div>{props.questionNum}</div>
-            }
-            {
                 !show && props.question !== undefined && <button disabled={props.item != props.questionNum} onClick={revealQueHandler}>Reveal Question</button>
             }
             <div>{show && <div>{props.question}</div>}</div>
-            {show && <VideoRecorder recordId={userQuestionId} uploadApiState={setUploadState}/>}
+            {show && <VideoRecorder recordId={userQuestionId} uploadApiState={setUploadState} />}
         </React.Fragment>
     );
 }

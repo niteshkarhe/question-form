@@ -68,12 +68,10 @@ const LandingPage = ({ isValidJob, questions }) => {
 
     const handleCheckboxChange = (event) => {
         setChecked(event.target.checked);
-        if (textFieldState === false)
-        {
+        if (textFieldState === false) {
             setTextFieldState(true);
         }
-        else
-        {
+        else {
             setTextFieldState(false);
         }
     };
@@ -88,13 +86,6 @@ const LandingPage = ({ isValidJob, questions }) => {
                     </Typography>
                 </CardContent>
                 <CardContent className={classes.fieldCardContent}>
-                    <FormControlLabel 
-                            required control={
-                            <Checkbox
-                                checked={checked}
-                                onChange={handleCheckboxChange}
-                            />} 
-                            label="I acknowledge that my video response will be saved for evaluation purpose" />
                     <form className={classes.userForm} onSubmit={submitHandler}>
                         <EmailField
                             label="Email"
@@ -114,6 +105,14 @@ const LandingPage = ({ isValidJob, questions }) => {
                         />
                         <button className={classes.submitBtn}>SUBMIT</button>
                     </form>
+                    <FormControlLabel
+                        required control={
+                            <Checkbox
+                                checked={checked}
+                                onChange={handleCheckboxChange}
+                            />}
+                        className={classes.checkbox}
+                        label="I acknowledge that my video response will be saved for evaluation purpose" />
                 </CardContent>
             </Card>
         </React.Fragment>

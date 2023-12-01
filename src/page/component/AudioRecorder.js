@@ -56,7 +56,7 @@ const AudioRecorder = () => {
             const formData = new FormData();
             formData.append("file", audiofile);
             await axios.post(
-                "http://127.0.0.1:5000/api/audio/upload",
+                "http://127.0.0.1:8080/api/audio/upload",
                 formData,
                 {
                   "content-type": "multipart/form-data",

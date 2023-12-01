@@ -25,6 +25,10 @@ export const useStyles = makeStyles()((theme) => ({
         background: "#19477d",
     },
 
+    checkbox: {
+        marginTop: "10px"
+    },
+
     submitBtnContainer: {
         textAlign: "center"
     },

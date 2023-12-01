@@ -28,6 +28,7 @@ const EmailField = (props) => {
             variant="outlined"
             className={props.className}
             inputRef={valueRef}
+            disabled={props.disabled}
             onChange={(e) => handleChange(e)}
         />
     )
